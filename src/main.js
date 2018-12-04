@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
+import * as fb from 'firebase/app'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
@@ -19,6 +21,19 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  created () {
+     // Initialize Firebase
+    var config = {
+      apiKey: 'AIzaSyBRB7S9c-DiEyQmVU7H6KWguDaXoVnmhHg',
+      authDomain: 'inflationstore-1b560.firebaseapp.com',
+      databaseURL: 'https://inflationstore-1b560.firebaseio.com',
+      projectId: 'inflationstore-1b560',
+      storageBucket: 'inflationstore-1b560.appspot.com',
+      messagingSenderId: '676696352981'
+    }
+    fb.initializeApp(config)
+  }
 })
