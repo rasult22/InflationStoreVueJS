@@ -2,7 +2,7 @@
   <div>
     <v-navigation-drawer app temporary v-model="sideNav">
       <v-list>
-        <v-list-tile v-for="(item,i) in items" :key="i" :to="item.url">
+        <v-list-tile v-for="(item,i) in links" :key="i" :to="item.url">
           <v-list-tile-action>
             <v-icon>{{item.icon}}</v-icon>
           </v-list-tile-action>
@@ -19,7 +19,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat v-for="(item,i) in items" :key="i" :to="item.url">
+        <v-btn flat v-for="(item,i) in links" :key="i" :to="item.url">
           {{item.title}}
           <v-icon right>{{item.icon}}</v-icon>
         </v-btn>
@@ -32,20 +32,30 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      sideNav: false,
-      items: [
-        { title: "New Product", icon: "add", url: "/new" },
-        { title: "Products", icon: "list", url: "/list" },
-        { title: "Cart", icon: "shopping_cart", url: "/checkout" },
-        { title: "Login", icon: "account_circle", url: "/login" },
-        { title: "Register", icon: "face", url: "/register" }
+      sideNav: false
+    }
+  },
+  computed: {
+    ...mapGetters(['isUserLoggedIn']),
+    links () {
+      if (this.isUserLoggedIn) {
+        return [
+          { title: 'New Product', icon: 'add', url: '/new' },
+          { title: 'Products', icon: 'list', url: '/list' },
+          { title: 'Cart', icon: 'shopping_cart', url: '/checkout' }
+        ]
+      }
+      return [
+        { title: 'Login', icon: 'account_circle', url: '/login' },
+        { title: 'Register', icon: 'face', url: '/register' }
       ]
-    };
+    }
   }
-};
+}
 </script>
 
 <style scoped>

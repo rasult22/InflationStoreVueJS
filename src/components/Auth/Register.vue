@@ -96,12 +96,11 @@ export default {
           email: this.email,
           password: this.password
         }
-        
         this.registerUser(user)
         .then(() => {
           this.$router.push('/')
         })
-        .catch(error => console.log(error))
+        .catch(() => {})
       }
     }
   }

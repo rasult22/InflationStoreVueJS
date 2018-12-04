@@ -19,7 +19,7 @@
             name="color"
             label="Color Product"
             type="text"
-            v-model="color"
+            v-model="colors"
           ></v-text-field>
           <v-text-field
             color="#373277"
@@ -78,15 +78,15 @@
 export default {
   data () {
     return {
-      title: "",
-      vendor: "",
-      color: "",
-      material: "",
+      title: '',
+      vendor: '',
+      colors: [],
+      material: '',
       price: 0,
-      description: "",
+      description: '',
       promo: false,
       valid: false
-    };
+    }
   },
   methods: {
     createProduct () {
@@ -94,17 +94,17 @@ export default {
         const product = {
           title: this.title,
           vendor: this.vendor,
-          color: this.color,
+          colors: this.color,
           material: this.material,
           price: parseInt(this.price),
           description: this.description,
           promo: this.promo
-        };
-        console.log(product);
+        }
+        console.log(product)
       }
     }
   }
-};
+}
 </script>
 
 <style scoped>

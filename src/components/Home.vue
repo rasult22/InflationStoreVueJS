@@ -42,17 +42,17 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
       images: [
-        { src: "https://ae01.alicdn.com/kf/HTB1GG0uX2LsK1Rjy0Fbq6xSEXXaw.jpg" },
-        { src: "https://ae01.alicdn.com/kf/HTB1UkpxXZfrK1Rjy0Fmq6xhEXXa2.jpg" },
-        { src: "https://ae01.alicdn.com/kf/HTB1iFJyX5zxK1Rjy1zkq6yHrVXa0.jpg" },
-        { src: "https://ae01.alicdn.com/kf/HTB1MR0wXZnrK1RkHFrdq6xCoFXa9.jpg" }
+        { src: 'https://ae01.alicdn.com/kf/HTB1GG0uX2LsK1Rjy0Fbq6xSEXXaw.jpg' },
+        { src: 'https://ae01.alicdn.com/kf/HTB1UkpxXZfrK1Rjy0Fmq6xhEXXa2.jpg' },
+        { src: 'https://ae01.alicdn.com/kf/HTB1iFJyX5zxK1Rjy1zkq6yHrVXa0.jpg' },
+        { src: 'https://ae01.alicdn.com/kf/HTB1MR0wXZnrK1RkHFrdq6xCoFXa9.jpg' }
       ]
-    };
+    }
   },
   computed: {
     ...mapGetters('products', {
@@ -60,7 +60,7 @@ export default {
       products: 'products'
     })
   }
-};
+}
 </script>
 
 <style scoped>
