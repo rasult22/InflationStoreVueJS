@@ -10,6 +10,14 @@
             <v-list-tile-title v-text="item.title"></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <v-list-tile @click="onLogout" v-if="isUserLoggedIn" >
+          <v-list-tile-action>
+            <v-icon>exit_to_app</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title v-text="'Logout'"></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar app color="#FFFFFF">
@@ -22,6 +30,11 @@
         <v-btn flat v-for="(item,i) in links" :key="i" :to="item.url">
           {{item.title}}
           <v-icon right>{{item.icon}}</v-icon>
+        </v-btn>
+        <v-btn flat @click="onLogout" v-if="isUserLoggedIn">
+          
+          <v-icon  right>exit_to_app</v-icon>
+            Logout
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -37,6 +50,12 @@ export default {
   data () {
     return {
       sideNav: false
+    }
+  },
+  methods: {
+    onLogout () {
+      this.$store.dispatch('logoutUser')
+      this.$router.push('/')
     }
   },
   computed: {

@@ -1,3 +1,19 @@
+import * as fb from 'firebase'
+
+class Product {
+  constructor (title, vendor, colors, type, price, description, ownerId, imageSrc = '', promo = false, id = null) {
+    this.title = title
+    this.vendor = vendor
+    this.colors = colors
+    this.type = type
+    this.price = price
+    this.description = description
+    this.ownerId = ownerId
+    this.imageSrc = imageSrc
+    this.promo = promo
+    this.id = id
+  }
+}
 
 export default {
   namespaced: true,
@@ -90,10 +106,79 @@ export default {
     }
   },
   mutations: {
-
+    createProduct (state, payload) {
+      state.products.push(payload)
+    },
+    loadProducts (state, payload) {
+      state.products = state.products.concat(payload)
+    }
   },
   actions: {
-
+    async createProduct ({ commit, rootGetters }, payload) {
+      commit('clearError', null, {root: true})
+      commit('setLoading', true, {root: true})
+      const image = payload.image
+      try {
+        const newProduct = new Product(
+          payload.title,
+          payload.vendor,
+          payload.colors,
+          payload.type,
+          payload.price,
+          payload.description,
+          rootGetters.user.id,
+          '',
+          payload.promo
+        )
+        const product = await fb.database().ref('products').push(newProduct)
+        const imageExt = image.name.slice(image.name.lastIndexOf('.'))
+        const fileData = await fb.storage().ref(`products/${product.key}.${imageExt}`).put(image)
+        const imageSrc = await fb.storage().ref().child(fileData.ref.fullPath).getDownloadURL()
+        await fb.database().ref('products').child(product.key).update({ imageSrc })
+        commit('setLoading', false, {root: true})
+        commit('createProduct', {
+          ...newProduct,
+          id: product.key,
+          imageSrc
+        })
+      } catch (error) {
+        commit('setError', error.message, {root: true})
+        commit('setLoading', false, {root: true})
+        throw error
+      }
+    },
+    async fetchProducts ({commit}) {
+      commit('clearError', null, {root: true})
+      commit('setLoading', true, {root: true})
+      const resultProducts = []
+      try {
+        const productsVal = await fb.database().ref('products').once('value')
+        const products = productsVal.val()
+        Object.keys(products).forEach(key => {
+          const product = products[key]
+          resultProducts.push(
+            new Product(
+              product.title,
+              product.vendor,
+              product.colors,
+              product.type,
+              product.price,
+              product.description,
+              product.ownerId,
+              product.imageSrc,
+              product.promo,
+              key
+            )
+          )
+          commit('loadProducts', resultProducts)
+          commit('setLoading', false, {root: true})
+        })
+      } catch (error) {
+        commit('setError', error.message, {root: true})
+        commit('setLoading', false, {root: true})
+        throw error
+      }
+    }
   }
 
 }
