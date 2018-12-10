@@ -111,6 +111,13 @@ export default {
     },
     loadProducts (state, payload) {
       state.products = state.products.concat(payload)
+    },
+    updateProduct (state, {title, description, id}) {
+      const product = state.products.find(a => {
+        return a.id === id
+      })
+      product.title = title
+      product.description = description
     }
   },
   actions: {
@@ -176,6 +183,26 @@ export default {
       } catch (error) {
         commit('setError', error.message, {root: true})
         commit('setLoading', false, {root: true})
+        throw error
+      }
+    },
+    async updateProduct ({commit}, {title, description, id}) {
+      commit('clearError', null, { root: true })
+      commit('setLoading', true, { root: true })
+      try {
+        await fb.database().ref('products').child(id).update({
+          title,
+          description
+        })
+        commit('updateProduct', {
+          title,
+          description,
+          id
+        })
+        commit('setLoading', false, { root: true })
+      } catch (error) {
+        commit('setError', error, { root: true })
+        commit('setLoading', false, { root: true })
         throw error
       }
     }

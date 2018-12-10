@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <section class="product mt-3 elevation-10">
+    <section class="product mt-3 elevation-10" v-if="!loading">
       <v-layout class row wrap>
         <v-flex xs12 lg6>
           <img class="product_img" :src="product.imageSrc" alt>
@@ -34,23 +34,38 @@
               <p class="product_title mb-2">Description:</p>
               {{product.description}}
             </div>
-            <v-btn color="primary" class="headline">Edit</v-btn>
+            <app-product-dialog :product="product"></app-product-dialog>
             <v-btn color="primary" class="headline">Buy</v-btn>
           </div>
         </v-flex>
       </v-layout>
     </section>
+    <section v-else class="text-xs-center">
+       <v-progress-circular
+            :size="100"
+            class="mt-5"
+            color="primary"
+            indeterminate
+        ></v-progress-circular>
+    </section>
   </v-container>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import ProductDialog from './ProductDialog'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   props: ['id'],
+  components: {
+    appProductDialog: ProductDialog
+  },
   computed: {
     ...mapGetters('products', {
       productById: 'productById'
     }),
+    loading () {
+      return this.$store.getters.loading
+    },
     product () {
       const id = this.id
       return this.$store.getters['products/productById'](id)
@@ -69,8 +84,8 @@ export default {
   margin-bottom: 100px;
 }
 .product_img {
-  height: 100%;
-  width: 550px;
+  width: 100%;
+  max-width: 550px;
 }
 .product_info {
   margin-left: 50px;

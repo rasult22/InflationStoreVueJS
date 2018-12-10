@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import { mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -93,8 +93,7 @@ export default {
       promo: false,
       valid: false,
       imageSrc: '',
-      image: this.image,
-      
+      image: this.image
     }
   },
   methods: {
