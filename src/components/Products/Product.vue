@@ -34,8 +34,8 @@
               <p class="product_title mb-2">Description:</p>
               {{product.description}}
             </div>
-            <app-product-dialog :product="product"></app-product-dialog>
-            <v-btn color="primary" class="headline">Buy</v-btn>
+            <app-product-dialog :product="product" v-if="isOwner"></app-product-dialog>
+            <app-buy-dialog :product="product"></app-buy-dialog>
           </div>
         </v-flex>
       </v-layout>
@@ -53,22 +53,24 @@
 
 <script>
 import ProductDialog from './ProductDialog'
-import { mapGetters, mapActions } from 'vuex'
 export default {
   props: ['id'],
   components: {
     appProductDialog: ProductDialog
   },
   computed: {
-    ...mapGetters('products', {
-      productById: 'productById'
-    }),
+    productById () {
+      return this.$store.getters.productById
+    },
     loading () {
       return this.$store.getters.loading
     },
     product () {
       const id = this.id
-      return this.$store.getters['products/productById'](id)
+      return this.$store.getters['productById'](id)
+    },
+    isOwner () {
+      return this.product.ownerId === this.$store.getters.user.id
     }
   }
 }

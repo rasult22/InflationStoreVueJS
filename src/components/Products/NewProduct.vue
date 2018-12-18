@@ -80,7 +80,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -97,9 +96,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions('products', {
-      asyncCreateProduct: 'createProduct'
-    }),
     onFileChange (event) {
       const file = event.target.files[0]
       const reader = new FileReader()
@@ -128,7 +124,7 @@ export default {
           promo: this.promo,
           image: this.image
         }
-        this.asyncCreateProduct(product)
+        this.$store.dispatch('createProduct', product)
         .then(() => {
           this.$router.push('/list')
         })

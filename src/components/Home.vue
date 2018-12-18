@@ -31,7 +31,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn dark color="orange" :to="'/product/'+ product.id">Открыть</v-btn>
-              <v-btn flat class="primary">Купить</v-btn>
+              <app-buy-dialog :product="product"></app-buy-dialog>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -56,7 +56,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -69,10 +68,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('products', {
-      promoProducts: 'promoProducts',
-      products: 'products'
-    }),
+    products () {
+      return this.$store.getters.products
+    },
+    promoProducts () {
+      return this.$store.getters.promoProducts
+    },
     loading () {
       return this.$store.getters.loading
     }

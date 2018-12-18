@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import BuyDialogComponent from '@/components/Common/BuyDialog'
 import * as fb from 'firebase/app'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
@@ -14,7 +15,7 @@ Vue.use(Vuetify, {
     warning: '#FF9800'
   }
 })
-
+Vue.component('app-buy-dialog', BuyDialogComponent)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -40,6 +41,6 @@ new Vue({
         this.$store.dispatch('autoLoginUser', user)
       }
     })
-    this.$store.dispatch('products/fetchProducts')
+    this.$store.dispatch('fetchProducts')
   }
 })
