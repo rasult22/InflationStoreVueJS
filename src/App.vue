@@ -3,14 +3,14 @@
     <Navbar/>
     <template v-if="error">
       <v-snackbar
-        :bottom="y === 'bottom'"
-        :left="x === 'left'"
-        :multi-line="mode === 'multi-line'"
-        :right="x === 'right'"
+        
+        
+       
+        
         :timeout="5000"
-        :top="y === 'top'"
+        
         @input="closeError"
-        :vertical="mode === 'vertical'"
+        
         color="#9e9ad6"
         :value="true"
       >

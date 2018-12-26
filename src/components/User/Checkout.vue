@@ -38,11 +38,11 @@
 export default {
   methods: {
     markDone (order) {
-      this.$store.dispatch('markOrderDone', order.id )
-      .then(()=> {
+      this.$store.dispatch('markOrderDone', order.id)
+      .then(() => {
         order.done = true
       })
-      .catch (() => {})
+      .catch(() => {})
     }
   },
   computed: {

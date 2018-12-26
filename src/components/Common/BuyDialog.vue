@@ -18,14 +18,14 @@
                <v-text-field
                 color="#373277"
                 name="name"
-                label="Name"
+                label="Your name"
                 type="text"
                 v-model="name"
                ></v-text-field>
                <v-text-field
                 color="#373277"
                 name="phone"
-                label="Phone number"
+                label="Your phone number"
                 type="number"
                 v-model="phone"
                ></v-text-field>

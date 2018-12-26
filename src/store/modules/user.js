@@ -41,9 +41,11 @@ export default {
       commit('clearError')
       commit('setLoading', true)
       try {
-        const user = await fb.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
-        commit('setUser', new User(user.uid))
-        commit('setLoading', false)
+        const userInfo = await fb.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
+        if (userInfo !== undefined) {
+          commit('setUser', new User(userInfo.user.uid))
+          commit('setLoading', false)
+        }
       } catch (error) {
         commit('setLoading', false)
         commit('setError', error.message)
@@ -51,6 +53,7 @@ export default {
       }
     },
     autoLoginUser ({commit}, payload) {
+      console.log('autoLogin Set user')
       commit('setUser', new User(payload.uid))
     },
     logoutUser ({commit}) {

@@ -29,13 +29,15 @@ export default {
       })
     },
     myProducts (state, getters) {
+      if (getters.user === null) {
+        return state.products
+      }
       return state.products.filter(product => {
         return product.ownerId === getters.user.id
       })
     },
     productById (state) {
       return (productId) => {
-        console.log(productId)
         return state.products.find(product => product.id === productId)
       }
     }

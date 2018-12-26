@@ -46,7 +46,7 @@
             v-model="description"
           ></v-text-field>
         </v-form>
-        <v-layout class="mb-3">
+        <v-layout row class="mb-3">
           <v-flex xs12>
             <v-btn 
               @click="uploadFile"
@@ -58,17 +58,17 @@
               ref="fileInput" type="file" style="display:none" accept="image/*">
           </v-flex>
         </v-layout>
-        <v-layout>
+        <v-layout row>
           <v-flex xs12>
             <img :src="imageSrc" v-if="imageSrc" alt="Uploaded photo" height="250px">
           </v-flex>
         </v-layout>
-        <v-layout class="mb-3">
+        <v-layout row class="mb-3">
           <v-flex xs12>
             <v-switch color="primary" :label="`Add to promo`" v-model="promo"></v-switch>
           </v-flex>
         </v-layout>
-        <v-layout class="mb-3">
+        <v-layout row class="mb-3">
           <v-flex xs12>
             <v-spacer></v-spacer>
             <v-btn class="success" :loading="loading" :disabled="!valid || loading || !image" @click="createProduct">Create product</v-btn>

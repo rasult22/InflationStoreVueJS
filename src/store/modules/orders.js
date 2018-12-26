@@ -53,6 +53,7 @@ export default {
           resultOrders.push(new Order(order.name, order.phone, order.productId, order.done, key))
         })
         commit('loadOrders', resultOrders)
+        commit('setLoading', false)
       } catch (error) {
         commit('setError', error.message)
         commit('setLoading', false)

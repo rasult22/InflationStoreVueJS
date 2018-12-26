@@ -67,9 +67,13 @@ export default {
     },
     product () {
       const id = this.id
+      console.log(id)
       return this.$store.getters['productById'](id)
     },
     isOwner () {
+      if (!this.$store.getters.isUserLoggedIn) {
+        return false
+      }
       return this.product.ownerId === this.$store.getters.user.id
     }
   }
@@ -110,4 +114,31 @@ export default {
   border: 1px solid #2b2b2b;
   border-radius: 24px;
 }
+
+@media screen and (max-width:1270px) {
+    .product {
+      text-align: center;
+    }
+    .product_info {
+      margin-left: 0;
+    }
+}
+
+@media screen and  (max-width: 620px) {
+  .product {
+    text-align: start;
+  }
+  .product_title {
+    text-align: left;
+  }
+} 
+
+@media screen and (max-width: 400px) {
+  .product {
+    padding: 10px;
+    text-align: left;
+  }
+}
+
+
 </style>

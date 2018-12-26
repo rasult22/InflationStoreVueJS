@@ -37,6 +37,8 @@ new Vue({
     }
     fb.initializeApp(config)
     fb.auth().onAuthStateChanged(user => {
+      console.log(' onAuth user')
+      console.log(user)
       if (user) {
         this.$store.dispatch('autoLoginUser', user)
       }

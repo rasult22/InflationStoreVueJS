@@ -4,7 +4,7 @@
       <v-flex xs12 sm8 offset-sm2>
         <h1 class="text--secondary mb-3">Products:</h1>
         <v-card class="elevation-10 mb-2" v-for="(product,i) in myProducts" :key="i">
-          <v-layout>
+          <v-layout row>
             <v-flex xs4>
               <v-card-media :src="product.imageSrc"></v-card-media>
             </v-flex>
@@ -24,7 +24,7 @@
     </v-layout>
     <v-layout v-else-if="!loading && myProducts.length === 0">
       <v-flex xs12 class="text-xs-center">
-        <h1 class="text-primary">Your have no products </h1>  
+        <h1 class="text--primary">Your have no products </h1>  
       </v-flex>
     </v-layout>
     <v-layout v-else>
@@ -49,7 +49,6 @@ export default {
   },
   computed: {
     myProducts () {
-      console.log()
       return this.$store.getters.myProducts
     },
     loading () {
